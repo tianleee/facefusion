@@ -1,20 +1,20 @@
 from collections import namedtuple
-from typing import Any, Callable, Dict, List, Literal, Optional, Tuple, TypeAlias, TypedDict
+from typing import Any, Callable, Dict, List, Literal, Optional, Tuple, TypedDict
 
 import numpy
 from numpy.typing import NDArray
 from onnxruntime import InferenceSession
 
-Scale : TypeAlias = float
-Score : TypeAlias = float
-Angle : TypeAlias = int
+Scale = float
+Score = float
+Angle = int
 
-Detection : TypeAlias = NDArray[Any]
-Prediction : TypeAlias = NDArray[Any]
+Detection = NDArray[Any]
+Prediction = NDArray[Any]
 
-BoundingBox : TypeAlias = NDArray[Any]
-FaceLandmark5 : TypeAlias = NDArray[Any]
-FaceLandmark68 : TypeAlias = NDArray[Any]
+BoundingBox = NDArray[Any]
+FaceLandmark5 = NDArray[Any]
+FaceLandmark68 = NDArray[Any]
 FaceLandmarkSet = TypedDict('FaceLandmarkSet',
 {
 	'5' : FaceLandmark5, #type:ignore[valid-type]
@@ -27,9 +27,9 @@ FaceScoreSet = TypedDict('FaceScoreSet',
 	'detector' : Score,
 	'landmarker' : Score
 })
-Embedding : TypeAlias = NDArray[numpy.float64]
+Embedding = NDArray[numpy.float64]
 Gender = Literal['female', 'male']
-Age : TypeAlias = range
+Age = range
 Race = Literal['white', 'black', 'latino', 'asian', 'indian', 'arabic']
 Face = namedtuple('Face',
 [
@@ -43,34 +43,34 @@ Face = namedtuple('Face',
 	'age',
 	'race'
 ])
-FaceSet : TypeAlias = Dict[str, List[Face]]
+FaceSet = Dict[str, List[Face]]
 FaceStore = TypedDict('FaceStore',
 {
 	'static_faces' : FaceSet,
 	'reference_faces' : FaceSet
 })
 
-VisionFrame : TypeAlias = NDArray[Any]
-Mask : TypeAlias = NDArray[Any]
-Points : TypeAlias = NDArray[Any]
-Distance : TypeAlias = NDArray[Any]
-Matrix : TypeAlias = NDArray[Any]
-Anchors : TypeAlias = NDArray[Any]
-Translation : TypeAlias = NDArray[Any]
+VisionFrame = NDArray[Any]
+Mask = NDArray[Any]
+Points = NDArray[Any]
+Distance = NDArray[Any]
+Matrix = NDArray[Any]
+Anchors = NDArray[Any]
+Translation = NDArray[Any]
 
-AudioBuffer : TypeAlias = bytes
-Audio : TypeAlias = NDArray[Any]
-AudioChunk : TypeAlias = NDArray[Any]
-AudioFrame : TypeAlias = NDArray[Any]
-Spectrogram : TypeAlias = NDArray[Any]
-Mel : TypeAlias = NDArray[Any]
-MelFilterBank : TypeAlias = NDArray[Any]
+AudioBuffer = bytes
+Audio = NDArray[Any]
+AudioChunk = NDArray[Any]
+AudioFrame = NDArray[Any]
+Spectrogram = NDArray[Any]
+Mel = NDArray[Any]
+MelFilterBank = NDArray[Any]
 
-Fps : TypeAlias = float
-Duration : TypeAlias = float
-Padding : TypeAlias = Tuple[int, int, int, int]
+Fps = float
+Duration = float
+Padding = Tuple[int, int, int, int]
 Orientation = Literal['landscape', 'portrait']
-Resolution : TypeAlias = Tuple[int, int]
+Resolution = Tuple[int, int]
 
 ProcessState = Literal['checking', 'processing', 'stopping', 'pending']
 QueuePayload = TypedDict('QueuePayload',
@@ -78,65 +78,46 @@ QueuePayload = TypedDict('QueuePayload',
 	'frame_number' : int,
 	'frame_path' : str
 })
-Args : TypeAlias = Dict[str, Any]
-UpdateProgress : TypeAlias = Callable[[int], None]
-ProcessFrames : TypeAlias = Callable[[List[str], List[QueuePayload], UpdateProgress], None]
-ProcessStep : TypeAlias = Callable[[str, int, Args], bool]
+Args = Dict[str, Any]
+UpdateProgress = Callable[[int], None]
+ProcessFrames = Callable[[List[str], List[QueuePayload], UpdateProgress], None]
+ProcessStep = Callable[[str, int, Args], bool]
 
-Content : TypeAlias = Dict[str, Any]
+Content = Dict[str, Any]
 
-Commands : TypeAlias = List[str]
-
-WarpTemplate = Literal['arcface_112_v1', 'arcface_112_v2', 'arcface_128', 'dfl_whole_face', 'ffhq_512', 'mtcnn_512', 'styleganex_384']
-WarpTemplateSet : TypeAlias = Dict[WarpTemplate, NDArray[Any]]
+WarpTemplate = Literal['arcface_112_v1', 'arcface_112_v2', 'arcface_128_v2', 'dfl_whole_face', 'ffhq_512', 'mtcnn_512', 'styleganex_384']
+WarpTemplateSet = Dict[WarpTemplate, NDArray[Any]]
 ProcessMode = Literal['output', 'preview', 'stream']
 
 ErrorCode = Literal[0, 1, 2, 3, 4]
 LogLevel = Literal['error', 'warn', 'info', 'debug']
-LogLevelSet : TypeAlias = Dict[LogLevel, int]
+LogLevelSet = Dict[LogLevel, int]
 
 TableHeaders = List[str]
 TableContents = List[List[Any]]
 
-FaceDetectorModel = Literal['many', 'retinaface', 'scrfd', 'yolo_face']
+FaceDetectorModel = Literal['many', 'retinaface', 'scrfd', 'yoloface']
 FaceLandmarkerModel = Literal['many', '2dfan4', 'peppa_wutz']
-FaceDetectorSet : TypeAlias = Dict[FaceDetectorModel, List[str]]
+FaceDetectorSet = Dict[FaceDetectorModel, List[str]]
 FaceSelectorMode = Literal['many', 'one', 'reference']
 FaceSelectorOrder = Literal['left-right', 'right-left', 'top-bottom', 'bottom-top', 'small-large', 'large-small', 'best-worst', 'worst-best']
-FaceOccluderModel = Literal['xseg_1', 'xseg_2', 'xseg_3']
+FaceOccluderModel = Literal['xseg_1', 'xseg_2']
 FaceParserModel = Literal['bisenet_resnet_18', 'bisenet_resnet_34']
 FaceMaskType = Literal['box', 'occlusion', 'region']
 FaceMaskRegion = Literal['skin', 'left-eyebrow', 'right-eyebrow', 'left-eye', 'right-eye', 'glasses', 'nose', 'mouth', 'upper-lip', 'lower-lip']
-FaceMaskRegionSet : TypeAlias = Dict[FaceMaskRegion, int]
+FaceMaskRegionSet = Dict[FaceMaskRegion, int]
+TempFrameFormat = Literal['bmp', 'jpg', 'png']
+OutputAudioEncoder = Literal['aac', 'libmp3lame', 'libopus', 'libvorbis']
+OutputVideoEncoder = Literal['libx264', 'libx265', 'libvpx-vp9', 'h264_nvenc', 'hevc_nvenc', 'h264_amf', 'hevc_amf','h264_qsv', 'hevc_qsv', 'h264_videotoolbox', 'hevc_videotoolbox']
+OutputVideoPreset = Literal['ultrafast', 'superfast', 'veryfast', 'faster', 'fast', 'medium', 'slow', 'slower', 'veryslow']
 
-AudioFormat = Literal['flac', 'm4a', 'mp3', 'ogg', 'opus', 'wav']
-ImageFormat = Literal['bmp', 'jpeg', 'png', 'tiff', 'webp']
-VideoFormat = Literal['avi', 'm4v', 'mkv', 'mov', 'mp4', 'webm']
-TempFrameFormat = Literal['bmp', 'jpeg', 'png', 'tiff']
-AudioTypeSet : TypeAlias = Dict[AudioFormat, str]
-ImageTypeSet : TypeAlias = Dict[ImageFormat, str]
-VideoTypeSet : TypeAlias = Dict[VideoFormat, str]
-
-AudioEncoder = Literal['flac', 'aac', 'libmp3lame', 'libopus', 'libvorbis', 'pcm_s16le', 'pcm_s32le']
-VideoEncoder = Literal['libx264', 'libx265', 'libvpx-vp9', 'h264_nvenc', 'hevc_nvenc', 'h264_amf', 'hevc_amf', 'h264_qsv', 'hevc_qsv', 'h264_videotoolbox', 'hevc_videotoolbox', 'rawvideo']
-EncoderSet = TypedDict('EncoderSet',
-{
-	'audio' : List[AudioEncoder],
-	'video' : List[VideoEncoder]
-})
-VideoPreset = Literal['ultrafast', 'superfast', 'veryfast', 'faster', 'fast', 'medium', 'slow', 'slower', 'veryslow']
-
-WebcamMode = Literal['inline', 'udp', 'v4l2']
-StreamMode = Literal['udp', 'v4l2']
-
-ModelOptions : TypeAlias = Dict[str, Any]
-ModelSet : TypeAlias = Dict[str, ModelOptions]
-ModelInitializer : TypeAlias = NDArray[Any]
+ModelOptions = Dict[str, Any]
+ModelSet = Dict[str, ModelOptions]
+ModelInitializer = NDArray[Any]
 
 ExecutionProvider = Literal['cpu', 'coreml', 'cuda', 'directml', 'openvino', 'rocm', 'tensorrt']
 ExecutionProviderValue = Literal['CPUExecutionProvider', 'CoreMLExecutionProvider', 'CUDAExecutionProvider', 'DmlExecutionProvider', 'OpenVINOExecutionProvider', 'ROCMExecutionProvider', 'TensorrtExecutionProvider']
-ExecutionProviderSet : TypeAlias = Dict[ExecutionProvider, ExecutionProviderValue]
-InferenceSessionProvider : TypeAlias = Any
+ExecutionProviderSet = Dict[ExecutionProvider, ExecutionProviderValue]
 ValueAndUnit = TypedDict('ValueAndUnit',
 {
 	'value' : int,
@@ -180,23 +161,31 @@ ExecutionDevice = TypedDict('ExecutionDevice',
 DownloadProvider = Literal['github', 'huggingface']
 DownloadProviderValue = TypedDict('DownloadProviderValue',
 {
-	'urls' : List[str],
+	'url' : str,
 	'path' : str
 })
-DownloadProviderSet : TypeAlias = Dict[DownloadProvider, DownloadProviderValue]
+DownloadProviderSet = Dict[DownloadProvider, DownloadProviderValue]
 DownloadScope = Literal['lite', 'full']
 Download = TypedDict('Download',
 {
 	'url' : str,
 	'path' : str
 })
-DownloadSet : TypeAlias = Dict[str, Download]
+DownloadSet = Dict[str, Download]
 
 VideoMemoryStrategy = Literal['strict', 'moderate', 'tolerant']
+
+File = TypedDict('File',
+{
+	'name' : str,
+	'extension' : str,
+	'path': str
+})
+
 AppContext = Literal['cli', 'ui']
 
-InferencePool : TypeAlias = Dict[str, InferenceSession]
-InferencePoolSet : TypeAlias = Dict[AppContext, Dict[str, InferencePool]]
+InferencePool = Dict[str, InferenceSession]
+InferencePoolSet = Dict[AppContext, Dict[str, InferencePool]]
 
 UiWorkflow = Literal['instant_runner', 'job_runner', 'job_manager']
 
@@ -205,7 +194,7 @@ JobStore = TypedDict('JobStore',
 	'job_keys' : List[str],
 	'step_keys' : List[str]
 })
-JobOutputSet : TypeAlias = Dict[str, List[str]]
+JobOutputSet = Dict[str, List[str]]
 JobStatus = Literal['drafted', 'queued', 'completed', 'failed']
 JobStepStatus = Literal['drafted', 'queued', 'started', 'completed', 'failed']
 JobStep = TypedDict('JobStep',
@@ -220,9 +209,9 @@ Job = TypedDict('Job',
 	'date_updated' : Optional[str],
 	'steps' : List[JobStep]
 })
-JobSet : TypeAlias = Dict[str, Job]
+JobSet = Dict[str, Job]
 
-ApplyStateItem : TypeAlias = Callable[[Any, Any], None]
+ApplyStateItem = Callable[[Any, Any], None]
 StateKey = Literal\
 [
 	'command',
@@ -263,13 +252,12 @@ StateKey = Literal\
 	'output_image_quality',
 	'output_image_resolution',
 	'output_audio_encoder',
-	'output_audio_quality',
-	'output_audio_volume',
 	'output_video_encoder',
 	'output_video_preset',
 	'output_video_quality',
 	'output_video_resolution',
 	'output_video_fps',
+	'skip_audio',
 	'processors',
 	'open_browser',
 	'ui_layouts',
@@ -283,7 +271,6 @@ StateKey = Literal\
 	'video_memory_strategy',
 	'system_memory_limit',
 	'log_level',
-	'halt_on_error',
 	'job_id',
 	'job_status',
 	'step_index'
@@ -327,14 +314,13 @@ State = TypedDict('State',
 	'keep_temp' : bool,
 	'output_image_quality' : int,
 	'output_image_resolution' : str,
-	'output_audio_encoder' : AudioEncoder,
-	'output_audio_quality' : int,
-	'output_audio_volume' : int,
-	'output_video_encoder' : VideoEncoder,
-	'output_video_preset' : VideoPreset,
+	'output_audio_encoder' : OutputAudioEncoder,
+	'output_video_encoder' : OutputVideoEncoder,
+	'output_video_preset' : OutputVideoPreset,
 	'output_video_quality' : int,
 	'output_video_resolution' : str,
 	'output_video_fps' : float,
+	'skip_audio' : bool,
 	'processors' : List[str],
 	'open_browser' : bool,
 	'ui_layouts' : List[str],
@@ -348,10 +334,8 @@ State = TypedDict('State',
 	'video_memory_strategy' : VideoMemoryStrategy,
 	'system_memory_limit' : int,
 	'log_level' : LogLevel,
-	'halt_on_error' : bool,
 	'job_id' : str,
 	'job_status' : JobStatus,
 	'step_index' : int
 })
-StateSet : TypeAlias = Dict[AppContext, State]
-
+StateSet = Dict[AppContext, State]

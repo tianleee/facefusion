@@ -9,7 +9,7 @@ from tqdm import tqdm
 
 from facefusion import logger, state_manager, wording
 from facefusion.exit_helper import hard_exit
-from facefusion.types import ProcessFrames, QueuePayload
+from facefusion.typing import ProcessFrames, QueuePayload
 
 PROCESSORS_METHODS =\
 [
